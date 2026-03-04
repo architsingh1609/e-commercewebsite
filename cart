@@ -1,0 +1,34 @@
+package ECommerceWebsite;
+
+import java.time.Duration;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class cart {
+	WebDriver driver;
+
+	@BeforeEach
+    public void logout() {
+        driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().window().maximize();
+    }
+
+    @Test
+    public void logoutinfo() throws InterruptedException {
+    	driver.get("https://automationexercise.com/login");
+    	driver.findElement(By.xpath("(//a[normalize-space()='Cart'])[1]")).click();
+    	Thread.sleep(4000);
+    	//driver.findElement(By.xpath("//a[normalize-space()='Cart']")).click();
+    	Thread.sleep(7000);
+    	driver.findElement(By.xpath("//input[@id='susbscribe_email']")).sendKeys("archit@gmail.com");
+    	Thread.sleep(4000);
+    	driver.findElement(By.xpath("//i[@class='fa fa-arrow-circle-o-right']")).click();
+    	
+
+}
+}
