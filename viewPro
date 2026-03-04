@@ -1,0 +1,44 @@
+package ECommerceWebsite;
+
+import java.time.Duration;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class viewPro {
+
+    WebDriver driver;
+
+    @BeforeEach
+    public void setup() {
+        driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().window().maximize();
+    }
+
+    @Test
+    public void logoutinfo() throws InterruptedException {
+
+        driver.get("https://automationexercise.com/");
+        Thread.sleep(4000);
+
+        driver.findElement(By.xpath("//a[@href='/products']")).click();
+        Thread.sleep(5000);
+
+        // Scroll down using keyboard (no JS)
+        Actions act = new Actions(driver);
+        act.sendKeys(Keys.PAGE_DOWN).perform();
+      //  Keys.PAGE_DOWN  : used toi scroll the page without using the js (javascript)
+        Thread.sleep(3000);
+
+        WebElement plus = driver.findElement(
+                By.xpath("(//i[@class='fa fa-plus-square'])[1]")
+        );
+
+        plus.click();
+        Thread.sleep(3000);
+    }
+}
