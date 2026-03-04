@@ -1,0 +1,54 @@
+package ECommerceWebsite;
+
+import java.io.File;
+import java.time.Duration;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class contactus {
+
+    WebDriver driver;
+
+    @BeforeEach
+    public void contact() {
+        driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().window().maximize();
+    }
+
+    @Test
+    public void contactinfo() throws InterruptedException {
+
+        driver.get("https://automationexercise.com/");
+
+        // Click Contact Us
+        driver.findElement(By.xpath("//a[contains(text(),'Contact us')]")).click();
+
+        // Verify heading
+        WebElement getint = driver.findElement(By.xpath("//h2[text()='Get In Touch']"));
+        System.out.println(getint.getText());
+
+        // Fill form
+        driver.findElement(By.name("name")).sendKeys("Archit Singh");
+        driver.findElement(By.name("email")).sendKeys("architsingh1609@gmail.com");
+        driver.findElement(By.name("subject")).sendKeys("Testing subject");
+        driver.findElement(By.id("message")).sendKeys("This is test message");
+
+       
+        File file = new File("/Users/architsingh/Downloads/info (5).pdf");
+        driver.findElement(By.name("upload_file"))
+        .sendKeys(file.getAbsolutePath());
+        
+        // Submit button
+      WebElement  btn =  driver.findElement(By.name("submit"));
+      btn.click();
+      driver.switchTo().alert().accept();
+      WebElement done = driver.findElement(By.xpath("//div[@class='status alert alert-success']"));
+      System.out.println(done.getText());
+    }
+}
