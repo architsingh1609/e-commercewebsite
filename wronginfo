@@ -1,0 +1,81 @@
+package ECommerceWebsite;
+
+import java.time.Duration;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class wronginfo {
+	
+	 WebDriver driver;
+
+	    @BeforeEach
+	    public void logincheck() {
+	        driver = new ChromeDriver();
+	        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+	        driver.manage().window().maximize();
+	    }
+
+	    @Test
+	    public void wronginfo() throws InterruptedException {
+	    	driver.get("https://automationexercise.com/login");
+	    	driver.findElement(By.xpath("//input[@data-qa='login-email']")).sendKeys("wrongmail@xyz.com");
+	    	driver.findElement(By.xpath("//input[@placeholder='Password']")).sendKeys("Wrongpass");
+	    	driver.findElement(By.xpath("//button[normalize-space()='Login']")).click();
+	    	Thread.sleep(5000);
+	    	WebElement inc = driver.findElement(By.xpath("//p[normalize-space()='Your email or password is incorrect!']"));
+	    	System.out.println(inc.getText());
+	    	
+	    	
+	    }
+	    @Test
+	    public void wrongpasscorrmail() throws InterruptedException {
+	    	driver.findElement(By.xpath("//input[@data-qa='login-email']")).sendKeys("architsingh1609@gmail.com");
+	    	driver.findElement(By.xpath("//input[@placeholder='Password']")).sendKeys("Wrongpass");
+	    	driver.findElement(By.xpath("//button[normalize-space()='Login']")).click();
+	    	Thread.sleep(5000);
+	    	WebElement inc = driver.findElement(By.xpath("//p[normalize-space()='Your email or password is incorrect!']"));
+	    	System.out.println(inc.getText());
+	    	
+	    	
+	    }
+	    @Test
+	    public void wrongmailcorrpass() throws InterruptedException {
+	    	driver.findElement(By.xpath("//input[@data-qa='login-email']")).sendKeys("abcsingh@gmail.com");
+	    	driver.findElement(By.xpath("//input[@placeholder='Password']")).sendKeys("Ar@160904");
+	    	driver.findElement(By.xpath("//button[normalize-space()='Login']")).click();
+	    	Thread.sleep(5000);
+	    	WebElement inc = driver.findElement(By.xpath("//p[normalize-space()='Your email or password is incorrect!']"));
+	    	System.out.println(inc.getText());
+	    	
+	    }
+	    @Test
+	    public void blankmailbox() throws InterruptedException {
+	    	driver.findElement(By.xpath("//input[@data-qa='login-email']")).sendKeys("");
+	    	driver.findElement(By.xpath("//input[@placeholder='Password']")).sendKeys("Ar@160904");
+	    	driver.findElement(By.xpath("//button[normalize-space()='Login']")).click();
+	    	Thread.sleep(5000);
+	    	WebElement inc = driver.findElement(By.xpath("//p[normalize-space()='Your email or password is incorrect!']"));
+	    	System.out.println(inc.getText());
+	    	
+	    }
+	    @Test
+	    public void blankpassbox() throws InterruptedException {
+	    	driver.findElement(By.xpath("//input[@data-qa='login-email']")).sendKeys("architsingh1609@gmail.com");
+	    	driver.findElement(By.xpath("//input[@placeholder='Password']")).sendKeys("");
+	    	driver.findElement(By.xpath("//button[normalize-space()='Login']")).click();
+	    	Thread.sleep(5000);
+	    	WebElement inc = driver.findElement(By.xpath("//p[normalize-space()='Your email or password is incorrect!']"));
+	    	System.out.println(inc.getText());
+	    	
+}
+	    @AfterEach
+	    public void closebro() {
+	    	driver.quit();
+	    }
+}
