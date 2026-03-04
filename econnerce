@@ -1,0 +1,106 @@
+package ECommerceWebsite;
+
+import java.time.Duration;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
+
+public class econnerce {
+	
+	WebDriver driver;
+	@BeforeEach
+	public void beforepagelanunch() {
+		driver = new ChromeDriver();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		//driver.get("https://automationexercise.com/login");
+	}
+	@Test
+	public void loginpage() {
+		driver.get("https://automationexercise.com/login");
+		WebElement username = driver.findElement(By.xpath("//input[@placeholder='Name']"));
+		username.sendKeys("archtsngh");
+		WebElement mail = driver.findElement(By.xpath("//input[@data-qa='signup-email']"));
+		mail.sendKeys("architsingh1609@gmail.com");
+		
+		WebElement button = driver.findElement(By.xpath("//button[normalize-space()='Signup']"));
+		button.click();
+		
+		driver.findElement(By.xpath("//label[normalize-space()='Title']")).getText();
+		WebElement gender = driver.findElement(By.xpath("//input[@id='id_gender1']"));
+		gender.click();
+		
+		WebElement name = driver.findElement(By.xpath("//input[@id='name']"));
+		name.clear();
+		name.sendKeys("Archit singh");
+		
+		WebElement mailcheck = driver.findElement(By.xpath("//input[@id='email']"));
+		System.out.println(mailcheck.getText());
+		// password 
+		WebElement password = driver.findElement(By.xpath("//input[@id='password']"));
+		password.sendKeys("Ar@160904");
+		// Bob
+		WebElement days = driver.findElement(By.xpath("//select[@id='days']"));
+		Actions act = new Actions(driver);
+		act.moveToElement(days).click().perform();
+		driver.findElement(By.cssSelector("select[id='days'] option[value='12']")).click();
+		//month 
+		WebElement month = driver.findElement(By.xpath("//select[@id='months']"));
+		Actions act1 = new Actions(driver);act1.moveToElement(month).click().perform();
+		driver.findElement(By.cssSelector("select[id='months'] option[value='9']")).click();
+		// year 
+		WebElement year = driver.findElement(By.xpath("//select[@id='years']"));
+		Actions act11 = new Actions(driver);act11.moveToElement(year).click().perform();
+		driver.findElement(By.cssSelector("option[value='2004']")).click();
+		
+		
+		driver.findElement(By.xpath("//input[@id='optin']")).click();
+		
+		WebElement titlt= driver.findElement(By.xpath("//b[normalize-space()='Address Information']"));
+		System.out.println(titlt.getText());
+		
+		driver.findElement(By.xpath("//input[@id='first_name']")).sendKeys("arcit");
+		driver.findElement(By.xpath("//input[@id='last_name']")).sendKeys("singh");
+		driver.findElement(By.xpath("//input[@id='company']")).sendKeys("singh123");
+		driver.findElement(By.xpath("//input[@id='address1']")).sendKeys("mail.ing");
+
+
+		//input[@id='address2']
+		//select[@id='country']
+		//input[@id='state']
+		//input[@id='zipcode']
+		//input[@id='mobile_number']
+		//button[normalize-space()='Create Account']
+		driver.findElement(By.xpath("//input[@id='address2']")).sendKeys("Singhaddhar");
+		new Select(driver.findElement(By.xpath("//select[@id='country']"))).selectByVisibleText("India");
+		driver.findElement(By.xpath("//input[@id='state']")).sendKeys("Uttar Pardesh");
+		driver.findElement(By.xpath("//input[@id='city']")).sendKeys("goralkhpur");
+		driver.findElement(By.xpath("//input[@id='zipcode']")).sendKeys("273008");
+		driver.findElement(By.xpath("//input[@id='mobile_number']")).sendKeys("9393456788");
+		//driver.findElement(By.xpath("/button[normalize-space()='Create Account']")).click();
+
+		driver.findElement(By.xpath("(//button[normalize-space()='Create Account'])[1]")).click();
+
+		//button[normalize-space()='Create Account']
+		WebElement Cont = driver.findElement(By.xpath("//b[normalize-space()='Account Created!']"));
+		System.out.println(Cont.getText());
+		
+		driver.findElement(By.xpath("//a[normalize-space()='Continue']")).click();
+		
+		
+	}
+	
+	@AfterEach
+	public void afterit() {
+		System.out.println("Account created ");
+	}
+	
+	
+
+}
