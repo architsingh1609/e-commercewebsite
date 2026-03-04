@@ -1,0 +1,35 @@
+package ECommerceWebsite;
+
+import java.time.Duration;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class registsamemail {
+	WebDriver driver;
+
+	@BeforeEach
+    public void samemail() {
+        driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().window().maximize();
+    }
+
+    @Test
+    public void regissamemail() throws InterruptedException {
+    	driver.get("https://automationexercise.com/login");
+    	//architsingh1609@gmail.com
+    	//Ar@160904
+    	driver.findElement(By.xpath("//input[@placeholder='Name']")).sendKeys("Archit SINGH");
+    	driver.findElement(By.xpath("//input[@data-qa='signup-email']")).sendKeys("architsingh1609@gmail.com");
+    	driver.findElement(By.xpath("//button[normalize-space()='Signup']")).click();
+    	WebElement out = driver.findElement(By.xpath("//p[normalize-space()='Email Address already exist!']"));
+    	System.out.println(out.getText());
+    }
+    
+
+}
