@@ -1,0 +1,88 @@
+package ECommerceWebsite;
+
+import java.time.Duration;
+
+import org.junit.jupiter.api.*;
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.*;
+
+public class removeprocart {
+
+    WebDriver driver;
+    WebDriverWait wait;
+
+    @BeforeEach
+    public void setup() {
+
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+
+        wait = new WebDriverWait(driver,
+                Duration.ofSeconds(20));
+    }
+
+    @Test
+    public void addProductToCart() {
+
+        driver.get("https://automationexercise.com/login");
+
+        // LOGIN
+        driver.findElement(By.name("email"))
+                .sendKeys("architsingh1609@gmail.com");
+
+        driver.findElement(By.name("password"))
+                .sendKeys("Ar@160904");
+
+        driver.findElement(
+                By.xpath("//button[normalize-space()='Login']"))
+                .click();
+
+        wait.until(ExpectedConditions
+                .visibilityOfElementLocated(
+                        By.xpath("//a[contains(text(),'Logged in')]")));
+
+        // PRODUCT
+        WebElement product = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(
+                        By.xpath("(//div[@class='product-image-wrapper'])[1]")));
+
+        Actions actions = new Actions(driver);
+        actions.moveToElement(product).perform();
+
+        // ADD TO CART
+        WebElement addToCart = wait.until(
+                ExpectedConditions.presenceOfElementLocated(
+                        By.xpath("(//a[contains(@class,'add-to-cart')])[1]")));
+
+        // ✅ Scroll to avoid advertisement overlap
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].scrollIntoView({block:'center'});",
+                        addToCart);
+
+        // Small wait for ads stabilization
+        wait.until(ExpectedConditions.elementToBeClickable(addToCart));
+
+        // ✅ JS CLICK (Best for intercepted clicks)
+        ((JavascriptExecutor) driver)
+                .executeScript("arguments[0].click();", addToCart);
+
+        // POPUP
+        WebElement viewCart = wait.until(
+                ExpectedConditions.elementToBeClickable(
+                        By.xpath("//u[text()='View Cart']")));
+
+        viewCart.click();
+
+        wait.until(ExpectedConditions.urlContains("view_cart"));
+
+        System.out.println("✅ Product Added Successfully");
+    }
+
+    @AfterEach
+    public void tearDown() {
+
+        driver.quit();
+    }
+}
